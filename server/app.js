@@ -16,6 +16,7 @@ mongoose
 mongoose.connection.once("open", () =>
   console.log("----Connected to Database----")
 );
+
 const app = express();
 
 app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
