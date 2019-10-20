@@ -1,5 +1,6 @@
 const express = require("express");
-const graphqlHTTP = require("express-graphql");
+const cors = require("cors");
+const expressGraphQL = require("express-graphql");
 const mongoose = require("mongoose");
 const schema = require("./schema/schema");
 require("dotenv").config();
@@ -19,7 +20,8 @@ mongoose.connection.once("open", () =>
 
 const app = express();
 
-app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
+app.use("/graphql", cors(), expressGraphQL({ schema, graphiql: true }));
 
 const PORT = process.env.PORT || 4000;
+
 app.listen(PORT, () => console.log(`----Listening on PORT: ${PORT}----`));
