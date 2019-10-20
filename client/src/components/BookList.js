@@ -3,7 +3,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 function BookList() {
-  const { loading, error, data } = useQuery(getBooksQuery);
+  const { loading, error, data } = useQuery(GET_BOOKS);
   if (error) {
     return <p>{error.message}</p>;
   }
@@ -21,7 +21,7 @@ function BookList() {
   );
 }
 
-const getBooksQuery = gql`
+const GET_BOOKS = gql`
   {
     books {
       title
