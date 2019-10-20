@@ -75,4 +75,56 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
-module.exports = new GraphQLSchema({ query: RootQuery });
+const AuthorMutations = {
+  addAuthor: {
+    type: AuthorType,
+    args: {
+      name: { type: GraphQLString },
+      age: { type: GraphQLInt }
+    },
+    resolve(parent, { name, age }) {
+      const author = new Author({
+        name,
+        age
+      });
+      return author.save();
+    }
+  },
+  deleteAuthor: {
+    type: AuthorType,
+    args: { id: { type: GraphQLString } },
+    resolve(parent, { id }) {
+      return Author.deleteOne({ _id: id });
+    }
+  }
+};
+
+const BookMutations = {
+  addBook: {
+    type: BookType,
+    args: {
+      title: { type: GraphQLString },
+      genre: { type: GraphQLString },
+      authorId: { type: GraphQLID }
+    },
+    resolve(parent, { title, genre, authorId }) {
+      const book = new Book({
+        title,
+        genre,
+        authorId
+      });
+
+      return book.save();
+    }
+  }
+};
+
+const mut = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    ...AuthorMutations,
+    ...BookMutations
+  }
+});
+
+module.exports = new GraphQLSchema({ query: RootQuery, mutation: mut });
