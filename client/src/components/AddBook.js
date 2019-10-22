@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
 import { ADD_BOOK } from "../mutations";
-import { GET_AUTHORS } from "../queries";
+import { GET_AUTHORS, GET_BOOKS } from "../queries";
 
 function AddBook() {
   const [book, setBook] = useState({ title: "", genre: "", authorId: "" });
@@ -26,7 +26,7 @@ function AddBook() {
 
     addBook({
       variables: { ...book },
-      refetchQueries: true
+      refetchQueries: [{ query: GET_BOOKS }]
     });
     setBook({ title: "", genre: "", authorId: "" });
   };
