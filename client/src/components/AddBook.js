@@ -1,57 +1,59 @@
 import React, { useState } from "react";
-import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
+import { ADD_BOOK } from "../mutations";
+import { GET_AUTHORS } from "../queries";
+
 function AddBook() {
-  const [book, setBook] = useState({});
-
+  const [book, setBook] = useState({ title: "", genre: "", authorId: "" });
   const { data, loading, error } = useQuery(GET_AUTHORS);
-
   const [addBook] = useMutation(ADD_BOOK);
 
-  if (error) {
-    return <p>{error.message}</p>;
-  }
+  if (error) return <p>{error.message}</p>;
 
-  const displayOptions = () => {
-    const { authors } = data;
-
-    return authors.map(({ name, id }) => (
-      <option key={id} value={name}>
+  const displayOptions = () =>
+    data.authors.map(({ name, id }) => (
+      <option key={id} value={id}>
         {name}
       </option>
     ));
-  };
 
-  const handleChange = e => {
+  const handleChange = e =>
     setBook({ ...book, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    const { title, genre, authorName } = book;
-
-    const author = data.authors.filter(author => authorName === author.name);
-
     addBook({
-      variables: { title, genre, authorId: author[0].id }
+      variables: { ...book },
+      refetchQueries: true
     });
-    setBook({});
+    setBook({ title: "", genre: "", authorId: "" });
   };
 
+  const { authorId, title, genre } = book;
   return (
     <form className="add-book" onSubmit={handleSubmit}>
       <div className="field">
         <label>
           Book name:
-          <input type="text" name="title" onChange={handleChange} />
+          <input
+            type="text"
+            name="title"
+            onChange={handleChange}
+            value={title}
+          />
         </label>
       </div>
       <div className="field">
         <label>
           Genre:
-          <input type="text" name="genre" onChange={handleChange} />
+          <input
+            type="text"
+            name="genre"
+            onChange={handleChange}
+            value={genre}
+          />
         </label>
       </div>
       <div className="field">
@@ -60,7 +62,8 @@ function AddBook() {
           name="pets"
           id="pet-select"
           onChange={handleChange}
-          name="authorName"
+          name="authorId"
+          value={authorId}
         >
           <option value="">Select author</option>
           {!loading && displayOptions()}
@@ -70,22 +73,5 @@ function AddBook() {
     </form>
   );
 }
-
-const GET_AUTHORS = gql`
-  {
-    authors {
-      id
-      name
-    }
-  }
-`;
-
-const ADD_BOOK = gql`
-  mutation addBook($title: String!, $genre: String!, $authorId: ID!) {
-    addBook(title: $title, genre: $genre, authorId: $authorId) {
-      id
-    }
-  }
-`;
 
 export default AddBook;
