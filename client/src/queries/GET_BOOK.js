@@ -13,7 +13,6 @@ export const GET_BOOK = gql`
         books {
           id
           title
-          genre
         }
       }
     }

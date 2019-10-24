@@ -4,6 +4,8 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { ADD_BOOK } from "../mutations";
 import { GET_AUTHORS, GET_BOOKS } from "../queries";
 
+import { Button, Input, Label, Select, Form } from "./styledComponents";
+
 function AddBook() {
   const [book, setBook] = useState({ title: "", genre: "", authorId: "" });
   const { data, loading, error } = useQuery(GET_AUTHORS);
@@ -33,32 +35,32 @@ function AddBook() {
 
   const { authorId, title, genre } = book;
   return (
-    <form className="add-book" onSubmit={handleSubmit}>
+    <Form className="add-book" onSubmit={handleSubmit}>
       <div className="field">
-        <label>
+        <Label>
           Book name:
-          <input
+          <Input
             type="text"
             name="title"
             onChange={handleChange}
             value={title}
           />
-        </label>
+        </Label>
       </div>
       <div className="field">
-        <label>
+        <Label>
           Genre:
-          <input
+          <Input
             type="text"
             name="genre"
             onChange={handleChange}
             value={genre}
           />
-        </label>
+        </Label>
       </div>
       <div className="field">
-        <label htmlFor="pet-select">Author: </label>
-        <select
+        <Label htmlFor="pet-select">Author: </Label>
+        <Select
           name="pets"
           id="pet-select"
           onChange={handleChange}
@@ -67,10 +69,10 @@ function AddBook() {
         >
           <option value="">Select author</option>
           {!loading && displayOptions()}
-        </select>
+        </Select>
+        <Button type="submit">+</Button>
       </div>
-      <button type="submit">+</button>
-    </form>
+    </Form>
   );
 }
 

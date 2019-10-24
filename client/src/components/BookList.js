@@ -21,7 +21,7 @@ function BookList() {
   return !loading ? (
     <div>
       {renderBooks()}
-      <BookDetails id={currentBookId} />
+      <BookDetails currentBookId={currentBookId} />
     </div>
   ) : (
     <div>Loading books...</div>

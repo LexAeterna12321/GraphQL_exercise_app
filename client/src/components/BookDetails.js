@@ -2,26 +2,28 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_BOOK } from "../queries";
 
-function BookDetails({ id }) {
-  const { data, loading, error } = useQuery(GET_BOOK, {
-    variables: { id }
+function BookDetails({ currentBookId }) {
+  const { data, loading } = useQuery(GET_BOOK, {
+    variables: { id: currentBookId }
   });
-  console.log(data);
 
   const renderDetails = () => {
     const {
       title,
       genre,
-      author: { name, books }
+      author: { name, age, books }
     } = data.book;
+
     return (
       <div>
         <h3>Title: {title}</h3>
         <i>Genre: {genre}</i>
         <div>
-          <h4>Author: {name}</h4>
+          <h4>
+            Author: {name}, age: {age}
+          </h4>
           <ul>
-            Books:{" "}
+            All books by this author:{" "}
             {books.map(({ title, id }) => (
               <li key={id}>{title}</li>
             ))}
