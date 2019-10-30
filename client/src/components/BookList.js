@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_BOOKS } from "../queries";
 import BookDetails from "./BookDetails";
+import { Ul, Li } from "./styledComponents";
 function BookList() {
   const [currentBookId, setCurrentBookId] = useState("");
   const { loading, error, data } = useQuery(GET_BOOKS);
@@ -9,13 +10,13 @@ function BookList() {
   if (error) return <p>{error.message}</p>;
 
   const renderBooks = () => (
-    <ul className="book-list">
+    <Ul className="book-list">
       {data.books.map(({ id, title }) => (
-        <li key={id} onClick={() => setCurrentBookId(id)}>
+        <Li key={id} onClick={() => setCurrentBookId(id)}>
           {title}
-        </li>
+        </Li>
       ))}
-    </ul>
+    </Ul>
   );
 
   return !loading ? (

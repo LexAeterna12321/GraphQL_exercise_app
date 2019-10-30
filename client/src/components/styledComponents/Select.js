@@ -2,7 +2,7 @@ import styled from "styled-components";
 import arrow from "../../assets/ico/arrow-down.png";
 
 export const Select = styled.select`
-  background-color: rgb(219, 112, 147);
+  background-color: #95afc0;
   margin: 1em;
   font-size: 1.3rem;
   padding: 7px 30px 7px 7px;

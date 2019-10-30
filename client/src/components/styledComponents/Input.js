@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const Input = styled.input`
-  background: rgb(219, 112, 147);
+  background: #30336b;
   color: white;
   margin: 1em;
   font-size: 1.3rem;
-  width: 400px;
+  width: 90%;
   padding: 7px;
   outline: none;
   border: none;
@@ -16,7 +16,7 @@ export const Input = styled.input`
   :hover,
   :focus,
   :active {
-    background: rgb(229, 122, 167);
+    background: #130f40;
   }
   ::placeholder {
     color: inherit;

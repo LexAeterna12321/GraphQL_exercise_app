@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,400i,700&display=swap&subset=latin-ext');
 
 body {
-  background: #eee;
+  background: #30336b;
   font-family: 'Nunito', sans-serif;
+  color: #eee;
 }

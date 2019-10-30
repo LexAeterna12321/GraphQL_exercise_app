@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  background: rgb(219, 112, 147);
+  background: #30336b;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -14,6 +14,6 @@ export const Button = styled.button`
   transition: background 0.1s;
 
   :hover {
-    background: rgb(229, 122, 167);
+    background: #130f40;
   }
 `;

@@ -5,7 +5,7 @@ import AddBook from "./components/AddBook";
 function App() {
   return (
     <div className="App">
-      <h1>Ninja's Reading List</h1>
+      <h1>GraphQL BookList app</h1>
       <BookList />
       <AddBook />
     </div>
